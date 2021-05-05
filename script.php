@@ -129,8 +129,6 @@ class api_tester
 		
 		$users = json_decode( $api->GET() );
 		
-		//echo "<pre>";
-		
 		// Assigning some variables I plan to use before the loop so I don't constantly assign them
 		$ul_class = "user-info-list";
 		$li_class = "user-info-list-item";
@@ -210,7 +208,7 @@ class api_tester
 		$li_class = "user-info-list-item";
 		
 		// Foreach user, we are going to output a title with their name and a list of their data
-		// And then under each user we are gonna have a list of all their comments and info about the post
+		// And then under each user we will put a message showing an intro we posted as the user
 		foreach( $users as $user )
 		{
 			$out[] = "<div class='user-container'>";
@@ -252,17 +250,12 @@ class api_tester
 			$api->set_url( $posts_url );
 			$res = json_decode( $api->POST( $data ) );
 			
-			//echo "<pre>";
-			//print_r($res);
-			//exit();
-			
 			// Output result of the post for each user
 			$out[] = "<div class='user-posts-container'>";
 			$out[] = "<h3>$user->name's introduction post</h3>";
 			$out[] = self::nested_list_to_html( $res );
 			
 			$out[] = "</div>"; // End of user-posts-container
-			
 			
 			$out[] = "</div>"; // End of user-container
 		}
